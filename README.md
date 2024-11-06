@@ -46,7 +46,7 @@ and restart Home Assistant
 Under Settings|Integrations|Entities you should now find a group of sensors per airfield/data item, for example
 
 ```
-METAR EGLC Altimeter - sensor.metar_eglc_altimiter - 1031
+METAR EGLC Altimeter - sensor.metar_eglc_altimeter - 1031
 ```
 
 The sensors created are 
