@@ -1,0 +1,9 @@
+{
+  "domain": "metar",
+  "name": "METAR and TAF",
+  "documentation": "https://github.com/ianpleasance/metar-integration",
+  "dependencies": [],
+  "codeowners": ["@ianpleasance"], 
+  "requirements": ["aiohttp>=3.7.4", "voluptuous>=0.12.1"],
+  "version": "1.0.0"
+}
