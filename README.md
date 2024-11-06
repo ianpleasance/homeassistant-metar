@@ -51,21 +51,25 @@ METAR EGLC Altimeter - sensor.metar_eglc_altimiter - 1031
 
 The sensors created are 
 
-_altimeter - Current altimeter QNH
-_dew_point - Current dew point in C
-_elevation - Airfield elevation in Feet
-_latitude - Airfield Latitude
-_longitude - Airfield Longitude
-_metar_id - Unique METAR ID
-_name - Airfield name in English
-_raw_ob - Raw METAR
-_raw_taf - Raw TAF
-_report_time - Time of report
-_temperature - Current temperature in C
-_visibility - Current visibility in km
-_wind_direction - Current wind direction in Degrees
-_wind_gust - Current wind gust speed
-_wind_speed - Current wind speed
+
+| Sensor name | Description  | Units  | 
+|---|---|---|
+| _altimeter   | Current altimeter  |  QNH |
+|  _dew_point |  Current dew point | C  |
+| _elevation | Airfield elevation | Feet |
+| _latitude | Airfield latitude | |
+| _longitude | Airfield longitude | |
+| _metar_id | Unique METAR ID | |
+| _name | Airfield name | |
+| _raw_ob | Raw METAR | |
+| _raw_taf | Raw TAF | |
+| _report_time | Time of report | |
+| _temperature | Current temperature | C |
+| _visibility | Current visibility | km |
+| _wind_direction | Current wind direction | Degrees |
+| _wind_gust | Current wind gust speed | Knots |
+| _wind_speed | Current wind speed | Knots |
+
 
 # Known issues
 
