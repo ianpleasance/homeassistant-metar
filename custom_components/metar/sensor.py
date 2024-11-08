@@ -1,11 +1,12 @@
 import logging
 import aiohttp
 from homeassistant.helpers.entity import Entity
+from homeassistant.helpers.entity_platform import async_get_platforms
 
 _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
-    """Set up the METAR sensors."""
+    """Set up the METAR sensors from configuration.yaml."""
     
     airfields = config.get("airfields", [])
     scan_interval = config.get("scan_interval", 600)  # Default to 10 minutes if not specified
@@ -13,13 +14,33 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     # Log the airfields for debugging
     _LOGGER.info("Configured airfields: %s", airfields)
 
-    # Create a list to hold entities
-    entities = []
+    # Track active airfields in Home Assistant's state
+    if "metar_airfields" not in hass.data:
+        hass.data["metar_airfields"] = set()
 
-    for airfield in airfields:
+    # Identify airfields to remove and add
+    current_airfields = set(airfields)
+    previous_airfields = hass.data["metar_airfields"]
+    airfields_to_remove = previous_airfields - current_airfields
+    airfields_to_add = current_airfields - previous_airfields
+
+    # Remove entities for any airfields no longer in the config
+    platform = async_get_platforms(hass, "metar")
+    for airfield in airfields_to_remove:
+        _LOGGER.info("Removing entities for airfield %s", airfield)
+        for entity in platform[0].entities:
+            if entity.unique_id.startswith(f"metar_{airfield.lower()}"):
+                await entity.async_remove()
+
+    # Create and add sensors for new or updated airfields
+    entities = []
+    for airfield in airfields_to_add:
         entities.extend(await create_metar_sensors(airfield))
 
     async_add_entities(entities, True)
+
+    # Update the tracked list of active airfields
+    hass.data["metar_airfields"] = current_airfields
 
 async def create_metar_sensors(airfield):
     """Create METAR sensors for each field in the METAR data."""
